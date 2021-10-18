@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/dates', 'DateController@index');
+Route::get('/destinations', 'DestinationController@index');
+Route::get('/diaries', 'DiaryController@index');
+Route::get('/plans', 'PlanController@index');
+Route::get('/prefectures', 'PrefectureController@index');
