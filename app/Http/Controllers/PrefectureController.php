@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PrefectureController extends Controller
+/*class PrefectureController extends Controller
 {
         public function index(Prefecture $prefecture)
     {

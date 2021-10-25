@@ -21,6 +21,10 @@
                 <input type="submit">
             </form>
         </div>
+        <h2 class='destination'>
+        <a href="/posts/{{ $post->id }}">{{ $post->place }}</a>
+        </h2>
+        <a href='/diaries/create'>create</a>
     </body>
 
 </html>
