@@ -1,15 +1,17 @@
 <?php
 
-use App\Diary;
+
 namespace App\Http\Controllers;
 
+use App\Diary;
+use App\Plan;
 use Illuminate\Http\Request;
 
 class DiaryController extends Controller
 {
-    public function index()
+    public function index(Diary $diary)
     {
-        return view('diaries/index');
+        return view('diaries/index')->with(['diaries' => $diary->get()]);
     }
     public function create()
     {
@@ -20,12 +22,20 @@ class DiaryController extends Controller
         $plans = $plan->where('diary_id', $diary->id)->get();
         return view('diaries/show')->with(['diary' => $diary, 'plans' => $plans]);
     }
-    public function store(Request $request, Post $post)
+    public function store(Request $request, Diary $diary, Plan $plan)
     {
-        $input = $request['post'];
-        $post->fill($input)->save();
-        return redirect('/post/' . $post->id);
+        $input_diary = $request['diary'];
+        $input_plan = $request['plan'];
+        //dd($input_plan);
+        $diary->fill($input_diary)->save();
+        $input_plan["diary_id"] = $diary->id;
+        $plan->fill($input_plan)->save();
+        return redirect('/diaries/' . $diary->id);
     }
+    /*public function edit()
+    {
+        
+    }*/
 }
 /*class DestinationController extends Controller
 {

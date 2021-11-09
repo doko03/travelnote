@@ -21,9 +21,11 @@
                 <input type="submit">
             </form>
         </div>
-        <h2 class='destination'>
-        <a href="/posts/{{ $post->id }}">{{ $post->place }}</a>
-        </h2>
+        @foreach ($diaries as $diary)
+            <div class='destination'>
+                <a href="/diaries/{{ $diary->id }}">{{ $diary->place }}</a>
+            </div>
+        @endforeach
         <a href='/diaries/create'>create</a>
     </body>
 

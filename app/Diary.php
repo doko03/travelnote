@@ -11,6 +11,7 @@ class Diary extends Model
     'title',
     'body',
     'place',
+    'date'
     ];
     
 }

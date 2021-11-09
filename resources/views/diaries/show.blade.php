@@ -12,22 +12,27 @@
         <h1 class="destination">
             {{ $diary->place }}
         </h1>
+        <h2 class="date">
+             {{ $diary->date }}
+        </h2>
         <div class="photo">
             
         </div>
+        
         <div class="plan">
-            
             @foreach ($plans as $plan)
                 {{ $plan->subject }}
+                {{ $plan->date_time }}
             @endforeach
         </div>
         <div class="diary">
-            {{ $diary->title }}
+            {{ $diary->title }}<br>
             {{ $diary->body }}
+         
         </div>
-        
         <div class="footer">
-            <a href="/">戻る</a>
+            <a href="/">[back]</a>
         </div>
     </body>
 </html>
+         
