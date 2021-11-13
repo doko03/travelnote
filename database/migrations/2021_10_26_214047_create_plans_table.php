@@ -17,7 +17,13 @@ class CreatePlansTable extends Migration
             $table->increments('id');
             $table->datetime('date_time');
             $table->text('subject', 200);
-            $table->integer('diary_id');
+            $table->unsignedInteger('diary_id');
+            $table->softDeletes();
+            
+            $table->foreign('diary_id')
+                    ->references('id')
+                    ->on('diaries')
+                    ->onDelete('cascade');
         });
     }
 

@@ -21,8 +21,8 @@
         
         <div class="plan">
             @foreach ($plans as $plan)
-                {{ $plan->subject }}
-                {{ $plan->date_time }}
+                {!! nl2br(e( $plan->subject )) !!} 
+                {!! nl2br(e( $plan->date_time )) !!} 
             @endforeach
         </div>
         <div class="diary">
@@ -33,6 +33,12 @@
         <div class="footer">
             <a href="/">[back]</a>
         </div>
+        <p class="edit">[<a href="/diaries/{{ $diary->id }}/edit">edit</a>]</p>
+        <form action="/diaries/{{ $diary->id }}" id="form_{{ $diary->id }}" method="POST" style="display:inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit">delete</button> 
+        </form>
     </body>
 </html>
          

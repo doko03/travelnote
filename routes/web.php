@@ -14,6 +14,9 @@ Route::get('/', 'DiaryController@index');
 Route::get('/diaries/create', 'DiaryController@create');
 Route::post('/diaries', 'DiaryController@store');
 Route::get('/diaries/{diary}', 'DiaryController@show');
+Route::get('/diaries/{diary}/edit', 'DiaryController@edit');
+Route::put('/diaries/{diary}', 'DiaryController@update');
+Route::delete('/diaries/{diary}', 'DiaryController@delete');
 /*Route::get('/', function() {
     return view('diary/index');
 });

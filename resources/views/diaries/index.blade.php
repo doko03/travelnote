@@ -17,6 +17,7 @@
         </div>
         <div class="serach">
             <form action="user_list.php" method="post">
+                @csrf
                 <input type="text" name="user_name">
                 <input type="submit">
             </form>
