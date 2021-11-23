@@ -1,5 +1,6 @@
-<!-- body内だけ表示 -->
-  <body>
+@extends('layouts.app')　　　　　　　　　　　　　　　　　　
+
+@section('content')
     <div class="content">
         <form action="/diaries/{{ $diary->id }}" method="POST">
           @csrf
@@ -17,9 +18,10 @@
             </div>
             <div class="content__plan">
               <h2>Plan</h2>
-              @foreach ($plans as $plan)
-                <textarea name="plan[subject]">{!! nl2br(e( $plan->subjec )) !!}</textarea>
-                <input type="datetime-local" name="plan[date_time]" value="{!! nl2br(e( $plan->date_time )) !!}"/>
+              @foreach ($plans as $key => $plan)
+                <input name="plan[{{$key}}][id]" value="{{ $plan->id }}" type="hidden"/>
+                <textarea name="plan[{{$key}}][subject]">{{ $plan->subject }}</textarea>
+                <input type="datetime-local" name="plan[{{$key}}][date_time]" value="{{ $plan->date_time }}"/>
               @endforeach
             </div>
             <div class="content__diary">
@@ -32,6 +34,4 @@
     </div>
     <div class="footer">
             <a href="/">[back]</a>
-    </div>
-  </body>
- 
+  @endsection

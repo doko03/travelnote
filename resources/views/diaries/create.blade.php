@@ -1,11 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Travelnote</title>
-    </head>
-    <body>
-        
+@extends('layouts.app')　　　　　　　　　　　　　　　　　　
+
+@section('content')
         <form action="/diaries" method="POST">
             @csrf
             <div class="destination">
@@ -35,6 +30,5 @@
             </div>
             <input type="submit" value="保存"/>
         </form>
-        <div class="back">[<a href="/">back</a>]</div>
-    </body>
-</html>
+        <div class="back">[<a href="/">[back]</a>]</div>
+@endsection

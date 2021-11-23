@@ -15,4 +15,9 @@ class Diary extends Model
     'date'
     ];
     
+    public function plans()   
+    {
+        return $this->hasMany('App\Plan');  
+    }
+    
 }

@@ -1,33 +1,33 @@
-    <!DOCTYPE html>
-       <meta charset="utf-8">
-        <title>Travelnote</title>
-        <!-- Fonts -->
-        <link href="https:/ /fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-     
-        
-    </head>
-    <body>
+    @extends('layouts.app')　　　　　　　　　　　　　　　　　　
+    
+    @section('content')
         <h1>Travelnote</h1>
         
-        <div class="header">
-            <h3>Login</h3>
-            <h3>Sign up</h3>
-            <img src="">
-        </div>
         <div class="serach">
-            <form action="user_list.php" method="post">
-                @csrf
-                <input type="text" name="user_name">
-                <input type="submit">
+            
+            <form action="{{url('/')}}" method="GET">
+                <p><input type="text" name="keyword" value="{{$keyword}}"></p>
+                <p><input type="submit" value="検索"></p>
             </form>
+             
+            @if($diaries->count())
+                <table border="1">
+                    @foreach ($diaries as $diary)
+                        <div class='destination'>
+                            <a href="/diaries/{{ $diary->id }}">{{ $diary->place }}</a>
+                        </div>
+                    @endforeach
+                </table>
+            @else
+                <p>見つかりませんでした。</p>
+            @endif
         </div>
-        @foreach ($diaries as $diary)
-            <div class='destination'>
-                <a href="/diaries/{{ $diary->id }}">{{ $diary->place }}</a>
-            </div>
-        @endforeach
+        
         <a href='/diaries/create'>create</a>
-    </body>
-
-</html>
+        
+        <div id="map" style="height:500px"> 
+	    </div>
+	    <script src="{{ asset('/js/map.js') }}"></script>
+	    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key={{ config("services.google-map.apikey") }}&callback=initMap" async defer>
+	    </script>
+    @endsection

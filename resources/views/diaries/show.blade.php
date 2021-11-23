@@ -1,14 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Posts</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="/css/app.css">
-    </head>
-    <body>
+@extends('layouts.app')　　　　　　　　　　　　　　　　　　
+
+@section('content')
         <h1 class="destination">
             {{ $diary->place }}
         </h1>
@@ -21,8 +13,8 @@
         
         <div class="plan">
             @foreach ($plans as $plan)
-                {!! nl2br(e( $plan->subject )) !!} 
-                {!! nl2br(e( $plan->date_time )) !!} 
+                {{ $plan->subject }} 
+                {{ $plan->date_time }} 
             @endforeach
         </div>
         <div class="diary">
@@ -33,12 +25,11 @@
         <div class="footer">
             <a href="/">[back]</a>
         </div>
-        <p class="edit">[<a href="/diaries/{{ $diary->id }}/edit">edit</a>]</p>
+            <button type="submit"><a href="/diaries/{{ $diary->id }}/edit">edit</a></button> 
         <form action="/diaries/{{ $diary->id }}" id="form_{{ $diary->id }}" method="POST" style="display:inline">
             @csrf
             @method('DELETE')
             <button type="submit">delete</button> 
         </form>
-    </body>
-</html>
+@endsection
          

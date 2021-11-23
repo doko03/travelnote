@@ -10,19 +10,35 @@ use Illuminate\Support\Carbon;
 
 class DiaryController extends Controller
 {
-    public function index(Diary $diary)
+    public function index(Request $request, Diary $diary)
     {
-        return view('diaries/index')->with(['diaries' => $diary->get()]);
+        //クエリビルダによる検索機能の実装
+        $keyword = $request->input('keyword');
+        //dd($keyword);
+        //クエリを組み立て
+        $query = Diary::query();
+ 
+        if (!empty($keyword)) {
+            $query->where('place', 'LIKE', "%{$keyword}%");
+            //dd($query->where('place', 'LIKE', "%{$keyword}%")->get());
+        }
+ 
+        $diaries = $query->get();
+        //dd($diaries);
+        return view('diaries/index', compact('keyword'))->with(['diaries' => $diaries]);
     }
+    
     public function create()
     {
         return view('diaries/create');
     }
+    
     public function show(Diary $diary, Plan $plans)
     {
-        $plans = $plans->where('diary_id', $diary->id)->get();
+        $plans = $diary->plans;
         return view('diaries/show')->with(['diary' => $diary, 'plans' => $plans]);
     }
+    
     public function store(Request $request, Diary $diary, Plan $plans)
     {
         $input_diary = $request['diary'];
@@ -33,25 +49,35 @@ class DiaryController extends Controller
         $plans->fill($input_plan)->save();
         return redirect('/diaries/' . $diary->id);
     }
+    
     public function edit(Diary $diary, Plan $plans)
     {
-        $plans = $plans->where('diary_id', $diary->id)->get();
-        //dd($plans);
+        $plans = $diary->plans;
+        
         foreach($plans as $plan){ 
             $plan->date_time = Carbon::parse($plan->date_time)->format('Y-m-d\TH:i');
         }
         return view('diaries/edit')->with(['diary' => $diary, 'plans' => $plans]);
         
     }
+    
     public function update(Request $request, Diary $diary, Plan $plans)
     {
         $input_diary = $request['diary'];
-        $input_plan = $request['plan'];
-        $input_plan["diary_id"] = $diary->id;
+        $input_plans = $request->plan;
+        
         $diary->fill($input_diary)->save();
-        $plans->fill($input_plan)->save();
+        
+        foreach($input_plans as $input) {
+            
+            $plan = $plans->find($input['id']);
+            $plan->fill($input)->save();
+            
+        }
+        
         return redirect('/diaries/' . $diary->id);
     }
+    
     public function delete(Diary $diary, Plan $plans)
     {
         $diary->delete();

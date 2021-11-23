@@ -9,9 +9,15 @@ class Plan extends Model
 {
     use SoftDeletes;
     protected $fillable = [
+    'id',
     'subject',
     'date_time',
     'diary_id'
     ];
     public $timestamps = false;
+    
+    public function diary()
+    {
+        return $this->belongsTo('App\Diary');
+    }
 }
