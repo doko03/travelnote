@@ -12,7 +12,8 @@ class Diary extends Model
     'title',
     'body',
     'place',
-    'date'
+    'date',
+    'imege'
     ];
     
     public function plans()   
